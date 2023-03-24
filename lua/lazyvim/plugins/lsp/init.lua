@@ -28,7 +28,8 @@ return {
           border = "rounded",
         },
       },
-      autoformat = false,
+      -- Automatically format on save
+      autoformat = true,
       format = {
         formatting_options = nil,
         timeout_ms = nil,

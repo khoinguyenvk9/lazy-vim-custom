@@ -63,6 +63,7 @@ map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save buffer" })
+map("n", "<c-s>", "<cmd>w<cr>", { desc = "Save buffer" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit buffer" })
 
 -- better indenting

@@ -12,7 +12,7 @@ return {
       },
     },
     opts = {
-      timeout = 3000,
+      timeout = 2000,
       background_colour = "#000000",
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
@@ -122,7 +122,7 @@ return {
               },
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+            { "filename", path = 1, symbols = { modified = " ✍️  ", readonly = "", unnamed = "" } },
           },
           lualine_x = {
             -- stylua: ignore
@@ -208,14 +208,25 @@ return {
     event = "VimEnter",
     opts = function()
       local dashboard = require("alpha.themes.dashboard")
-      local logo = table.concat({
-        "██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z",
-        "██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z",
-        "██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z",
-        "██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z",
-        "███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║",
-        "╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝",
-      }, "\n")
+      -- local logo = table.concat({
+      --   "██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z",
+      --   "██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z",
+      --   "██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z",
+      --   "██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z",
+      --   "███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║",
+      --   "╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝",
+      -- }, "\n")
+
+      local logo = [[
+██████╗  ██████╗                ██████╗ ██████╗ 
+╚════██╗██╔════╝               ██╔═████╗╚════██╗
+ █████╔╝███████╗     █████╗    ██║██╔██║ █████╔╝
+██╔═══╝ ██╔═══██╗    ╚════╝    ████╔╝██║ ╚═══██╗
+███████╗╚██████╔╝              ╚██████╔╝██████╔╝
+╚══════╝ ╚═════╝                ╚═════╝ ╚═════╝ 
+
+     Nghề chọn người chứ người chọn tiền
+]]
 
       dashboard.section.header.val = vim.split(logo, "\n")
       dashboard.section.buttons.val = {

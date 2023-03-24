@@ -4,6 +4,7 @@ return {
   -- file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     cmd = "Neotree",
     keys = {
       {
@@ -57,6 +58,82 @@ return {
           expander_expanded = "",
           expander_highlight = "NeoTreeExpander",
         },
+        git_status = {
+          symbols = {
+            -- Change type
+            added = "+", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+            deleted = "✖", -- this can only be used in the git_status source
+            renamed = "", -- this can only be used in the git_status source
+            -- Status type
+            untracked = "?",
+            ignored = "",
+            unstaged = "•",
+            staged = "",
+            conflict = "",
+          },
+        },
+      },
+    },
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    keys = {
+      { "<leader>e", "<cmd>NvimTreeToggle<cr>" },
+      {
+        "<leader>E",
+        function()
+          local root_of_cf = require("lazyvim.util").get_root()
+          local nvim_tree_api = require("nvim-tree.api")
+          nvim_tree_api.toggle({ path = root_of_cf, focus = false })
+        end,
+      },
+    },
+    init = function()
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("nvim-tree")
+        end
+      end
+    end,
+    opts = {
+      disable_netrw = true,
+      hijack_cursor = true,
+      root_dirs = {},
+      prefer_startup_root = true,
+      view = {
+        width = 36,
+      },
+      renderer = {
+        group_empty = true,
+        highlight_git = true,
+        highlight_modified = "all",
+        icons = {
+          git_placement = "after",
+        },
+      },
+      update_focused_file = {
+        enable = true,
+        update_root = true,
+      },
+      diagnostics = {
+        enable = true,
+        show_on_dirs = false,
+      },
+      filters = {
+        exclude = { ".git", "target", "build", "node_modules", "dist", "__tests__", "logs" },
+      },
+      actions = {
+        expand_all = {
+          exclude = { ".git", "target", "build", "node_modules", "dist", "__tests__", "logs" },
+        },
+        open_file = {
+          window_picker = {
+            chars = "1234567890",
+          },
+        },
       },
     },
   },
@@ -94,8 +171,8 @@ return {
     },
     opts = {
       defaults = {
-        prompt_prefix = "-> ",
-        selection_caret = " ",
+        prompt_prefix = " 🔍 ",
+        selection_caret = " 👉 ",
         layout_config = {
           horizontal = {
             preview_width = 0.6,
@@ -191,7 +268,9 @@ return {
         -- stylua: ignore
         map("n", "<leader>gl", function() gs.blame_line({ full = true }) end)
         map("n", "<leader>gd", gs.diffthis)
-        map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
+        map("n", "<leader>gD", function()
+          gs.diffthis("~")
+        end, "Diff This ~")
         -- map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
       end,
     },
